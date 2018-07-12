@@ -1,7 +1,5 @@
-import UL from "components/common/UL";
+import UL from 'components/common/UL';
 
-const IngredientList = UL.extend`
-	
-`;
+const IngredientList = UL.extend``;
 
 export default IngredientList;

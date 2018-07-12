@@ -1,4 +1,4 @@
-import H1 from "components/common/H1";
+import H1 from 'components/common/H1';
 
 const RecipeTitle = H1.extend`
 	padding-right: 20px;

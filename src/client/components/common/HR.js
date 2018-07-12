@@ -1,6 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-const HR = styled.hr`
-`;
+const HR = styled.hr``;
 
 export default HR;

@@ -1,7 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-const UL = styled.ul`
-
-`;
+const UL = styled.ul``;
 
 export default UL;

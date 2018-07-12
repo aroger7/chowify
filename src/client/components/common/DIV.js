@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const DIV = styled.div`
-	display: block;
+    display: block;
 `;
 
 export default DIV;

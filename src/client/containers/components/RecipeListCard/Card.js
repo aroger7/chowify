@@ -1,4 +1,4 @@
-import LI from "components/common/LI";
+import LI from 'components/common/LI';
 
 const Card = LI.extend`
 	display: block;

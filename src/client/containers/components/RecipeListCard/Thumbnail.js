@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 const RecipeThumbnailWrapper = styled.img`
 	display: block;
@@ -8,12 +8,10 @@ const RecipeThumbnailWrapper = styled.img`
 	min-height: 200px;
 `;
 
-const Thumbnail = ({ url }) => {
-	return <RecipeThumbnailWrapper src={url} />;
-};
+const Thumbnail = ({ url }) => <RecipeThumbnailWrapper src={url} />;
 
 Thumbnail.propTypes = {
-	url: PropTypes.string
+  url: PropTypes.string
 };
 
 export default Thumbnail;

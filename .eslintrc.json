@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb"],
+  "extends": ["airbnb", "plugin:import/errors", "plugin:import/warnings"],
   "env": {
     "browser": true,
     "node": true
@@ -8,5 +8,8 @@
     "no-console": "off",
     "comma-dangle": "off",
     "react/jsx-filename-extension": "off"
+  },
+  "settings": {
+    "import/resolver": "webpack"
   }
 }

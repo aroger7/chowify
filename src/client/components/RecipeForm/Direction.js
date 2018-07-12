@@ -1,7 +1,5 @@
-import LI from "components/common/LI";
+import LI from 'components/common/LI';
 
-const Direction = LI.extend`
-
-`;
+const Direction = LI.extend``;
 
 export default Direction;

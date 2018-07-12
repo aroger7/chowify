@@ -1,4 +1,4 @@
-import DIV from "components/common/DIV";
+import DIV from 'components/common/DIV';
 
 const Container = DIV.extend`
 	display: inline-block;

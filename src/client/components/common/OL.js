@@ -1,7 +1,5 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-const OL = styled.ol`
-	
-`;
+const OL = styled.ol``;
 
 export default OL;

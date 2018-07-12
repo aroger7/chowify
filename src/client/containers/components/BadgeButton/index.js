@@ -1,4 +1,4 @@
-import Button from "components/common/Button";
+import Button from 'components/common/Button';
 
 const BadgeButton = Button.extend`
 	width: 80px;

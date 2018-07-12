@@ -1,4 +1,4 @@
-import Overlay from "components/Overlay";
+import Overlay from 'components/Overlay';
 
 const WindowOverlay = Overlay.extend`	
 	position: fixed;

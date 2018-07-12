@@ -1,4 +1,4 @@
-import OL from "components/common/OL";
+import OL from 'components/common/OL';
 
 const DirectionList = OL.extend`
 	

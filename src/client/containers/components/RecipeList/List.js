@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Masonry from "react-masonry-component";
+import styled from 'styled-components';
+import Masonry from 'react-masonry-component';
 
 const List = styled(Masonry)`
 	width: 100%;

@@ -1,7 +1,7 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const TextBox = styled.input.attrs({
-	type: "text"
+  type: 'text'
 })`
 	font: 1em "PT Sans", sans-serif;
 `;

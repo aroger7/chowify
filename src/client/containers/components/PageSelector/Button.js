@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
+import React from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const PageSelectorButtonWrapper = styled.button`
 	background: transparent;
@@ -26,30 +26,28 @@ const PageSelectorButtonWrapper = styled.button`
 	}
 `;
 
-const PageSelectorButton = ({ content, disabled, onClick }) => {
-	return (
-		<PageSelectorButtonWrapper
-			disabled={disabled}
-			onClick={onClick}
-			type="button"
+const PageSelectorButton = ({ content, disabled, onClick }) => (
+  <PageSelectorButtonWrapper
+    disabled={disabled}
+    onClick={onClick}
+    type="button"
 		>
-			{content}
-		</PageSelectorButtonWrapper>
-	);
-};
+    {content}
+  </PageSelectorButtonWrapper>
+);
 
 PageSelectorButton.defaultProps = {
-	content: null,
-	disabled: false
+  content: null,
+  disabled: false
 };
 
 PageSelectorButton.propTypes = {
-	content: PropTypes.oneOfType([
-		PropTypes.string,
-		PropTypes.number,
-		PropTypes.element
-	]),
-	onClick: PropTypes.func
+  content: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.element
+  ]),
+  onClick: PropTypes.func
 };
 
 export default PageSelectorButton;
