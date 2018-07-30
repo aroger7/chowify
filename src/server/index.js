@@ -6,6 +6,7 @@ const path = require('path');
 
 const { mongoose } = require('./db/mongoose');
 const users = require('./routes/users');
+const recipes = require('./routes/recipes');
 
 const app = express();
 const port = process.env.PORT;
@@ -18,5 +19,6 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', users);
+app.use('/recipes', recipes);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
