@@ -1,10 +1,12 @@
 {
   "test": {
     "PORT": 3000,
-    "MONGODB_URI": "mongodb://localhost:27017/chowify-test"
+    "MONGODB_URI": "mongodb://localhost:27017/chowify-test",
+    "JWT_SECRET": "abc123"
   },
   "development": {
     "PORT": 3000,
-    "MONGODB_URI": "mongodb://localhost:27017/chowify-dev"
+    "MONGODB_URI": "mongodb://localhost:27017/chowify-dev",
+    "JWT_SECRET": "abc123"
   }
 }
