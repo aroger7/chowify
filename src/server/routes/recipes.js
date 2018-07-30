@@ -7,6 +7,9 @@ const router = express.Router();
 
 router.post('/', authenticate, recipesController.recipesPost);
 
-router.get('/:id', recipesController.recipesDetailGet);
+router
+  .route('/:id')
+  .get(recipesController.recipesDetailGet)
+  .delete(authenticate, recipesController.recipesDetailDelete);
 
 module.exports = router;
