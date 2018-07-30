@@ -19,3 +19,14 @@ exports.recipesPost = (req, res) => {
       res.status(400).send();
     });
 };
+
+exports.recipesDetailGet = (req, res) => {
+  Recipe.findById(req.params.id)
+    .then(recipe => {
+      if (!recipe) {
+        res.status(404).send();
+      }
+      res.send(recipe);
+    })
+    .catch(e => res.status(400).send());
+};
