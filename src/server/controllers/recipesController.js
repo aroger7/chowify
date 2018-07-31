@@ -1,4 +1,5 @@
 const { ObjectID } = require('mongodb');
+const pick = require('lodash.pick');
 
 const { Recipe } = require('../models/recipe');
 
@@ -50,6 +51,38 @@ exports.recipesDetailGet = (req, res) => {
     .then(recipe => {
       if (recipe) {
         res.send(recipe);
+      } else {
+        res.status(404).send();
+      }
+    })
+    .catch(e => res.status(400).send());
+};
+
+exports.recipesDetailPatch = (req, res) => {
+  const id = req.params.id;
+  if (!ObjectID.isValid(id)) {
+    res.status(404).send();
+  }
+
+  const body = pick(req.body, [
+    'name',
+    'description',
+    'ingredients',
+    'directions',
+    'imageUrl'
+  ]);
+
+  Recipe.findOneAndUpdate(
+    {
+      _id: id,
+      _creator: req.user._id
+    },
+    { $set: body },
+    { new: true }
+  )
+    .then(recipe => {
+      if (recipe) {
+        res.send({ recipe });
       } else {
         res.status(404).send();
       }
