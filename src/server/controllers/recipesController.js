@@ -4,15 +4,17 @@ const pick = require('lodash.pick');
 const { Recipe } = require('../models/recipe');
 
 exports.recipesPost = (req, res) => {
-  const { name, description, ingredients, directions, imageUrl } = req.body;
-  const recipe = new Recipe({
-    name,
-    description,
-    ingredients,
-    directions,
-    imageUrl,
-    _creator: req.user._id.toHexString()
-  });
+  const body = pick(req.body, [
+    'name',
+    'description',
+    'ingredients',
+    'directions',
+    'imageUrl'
+  ]);
+
+  const recipe = new Recipe(
+    Object.assign(body, { _creator: req.user._id.toHexString() })
+  );
   recipe
     .save()
     .then(doc => {
