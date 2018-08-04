@@ -1,4 +1,5 @@
 const { User } = require('../models/user');
+const { Recipe } = require('../models/recipe');
 
 exports.usersPost = (req, res) => {
   const user = new User({
@@ -39,4 +40,23 @@ exports.usersCurrentTokenDelete = (req, res) => {
     .catch(e => {
       res.status(404).send();
     });
+};
+
+exports.usersCurrentRecipesGet = (req, res) => {
+  Recipe.find({ _creator: req.user._id })
+    .then(recipes => {
+      res.send({
+        count: recipes.length,
+        recipes: recipes.map(
+          ({ _id, _creator, name, description, imageUrl }) => ({
+            _id,
+            _creator,
+            name,
+            description,
+            imageUrl
+          })
+        )
+      });
+    })
+    .catch(e => res.send(400).send());
 };

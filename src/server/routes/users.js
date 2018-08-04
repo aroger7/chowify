@@ -12,6 +12,12 @@ router.post('/login', usersController.usersLoginPost);
 
 router.get('/current', authenticate, usersController.usersCurrentGet);
 
+router.get(
+  '/current/recipes',
+  authenticate,
+  usersController.usersCurrentRecipesGet
+);
+
 router.delete(
   '/current/token',
   authenticate,
