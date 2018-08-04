@@ -3,6 +3,71 @@ const pick = require('lodash.pick');
 
 const { Recipe } = require('../models/recipe');
 
+const LIMIT_DEFAULT = 50;
+const LIMIT_MAX = 100;
+
+exports.recipesGet = (req, res) => {
+  const { limit, next, name } = req.query;
+  const [nextId, nextName] = next ? decodeURI(next).split('_') : '';
+  let limitNumber = LIMIT_DEFAULT;
+  if (limit) {
+    limitNumber = Number(limit);
+    if (
+      !Number.isInteger(limitNumber) ||
+      limitNumber > LIMIT_MAX ||
+      limitNumber === 0
+    ) {
+      res
+        .status(400)
+        .send({ error: `Invalid limit, max value is ${LIMIT_MAX}` });
+    }
+  }
+  if (nextId && !ObjectID.isValid(nextId)) {
+    res.status(400).send({ error: 'Next value is not a valid ID' });
+  }
+
+  const query = {
+    ...(next && {
+      $or: [
+        { name: { $gt: nextName } },
+        {
+          name: nextName,
+          _id: { $lte: nextId }
+        }
+      ]
+    }),
+    ...(name && { name: { $regex: new RegExp(`.*${name}.*`, 'i') } })
+  };
+
+  Recipe.find(query)
+    .sort({
+      name: 1,
+      _id: -1
+    })
+    .limit(limitNumber + 1)
+    .then(recipes => {
+      const nextRecipe =
+        recipes.length === limitNumber + 1 ? recipes.pop() : null;
+
+      res.status(200).send({
+        count: recipes.length,
+        recipes: recipes.map(
+          ({ _id, _creator, name, description, imageUrl }) => ({
+            _id,
+            _creator,
+            name,
+            description,
+            imageUrl
+          })
+        ),
+        next: nextRecipe
+          ? encodeURI(`${nextRecipe._id}_${nextRecipe.name}`)
+          : null
+      });
+    })
+    .catch(e => res.status(400).send(e));
+};
+
 exports.recipesPost = (req, res) => {
   const body = pick(req.body, [
     'name',

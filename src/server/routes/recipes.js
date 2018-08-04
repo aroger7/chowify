@@ -5,7 +5,10 @@ const { authenticate } = require('../middleware/authenticate');
 
 const router = express.Router();
 
-router.post('/', authenticate, recipesController.recipesPost);
+router
+  .route('/')
+  .get(recipesController.recipesGet)
+  .post(authenticate, recipesController.recipesPost);
 
 router
   .route('/:id')
