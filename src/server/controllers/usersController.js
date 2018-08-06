@@ -31,6 +31,15 @@ exports.usersCurrentGet = (req, res) => {
   res.send(req.user);
 };
 
+exports.usersCurrentChangePasswordPost = (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  req.user.password = newPassword;
+  req.user
+    .save()
+    .then(() => res.status(200).send())
+    .catch(e => res.status(400).send());
+};
+
 exports.usersCurrentTokenDelete = (req, res) => {
   req.user
     .removeToken(req.token)

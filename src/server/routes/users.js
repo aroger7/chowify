@@ -12,6 +12,12 @@ router.post('/login', usersController.usersLoginPost);
 
 router.get('/current', authenticate, usersController.usersCurrentGet);
 
+router.post(
+  '/current/changePassword',
+  authenticate,
+  usersController.usersCurrentChangePasswordPost
+);
+
 router.get(
   '/current/recipes',
   authenticate,

@@ -29,6 +29,18 @@ const UserSchema = new mongoose.Schema({
   ]
 });
 
+UserSchema.methods.comparePassword = function(password) {
+  const user = this;
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, user.password, (err, res) => {
+      if (res) {
+        resolve(user);
+      }
+      reject();
+    });
+  });
+};
+
 UserSchema.methods.generateAuthToken = function() {
   const user = this;
   const access = 'auth';
@@ -66,14 +78,7 @@ UserSchema.statics.findByCredentials = function(userName, password) {
       return Promise.reject();
     }
 
-    return new Promise((resolve, reject) => {
-      bcrypt.compare(password, user.password, (err, res) => {
-        if (res) {
-          resolve(user);
-        }
-        reject();
-      });
-    });
+    return user.comparePassword(password);
   });
 };
 
