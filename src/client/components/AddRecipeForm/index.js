@@ -70,7 +70,6 @@ class AddRecipeForm extends Component {
             onChange={this.handleNameChange}
           />
           <Flex flexDirection="column" py="10px">
-            
             <TextArea
               name="description"
               onChange={this.handleDescriptionChange}
