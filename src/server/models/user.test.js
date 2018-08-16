@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { ObjectID } = require('mongodb');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const config = require('../config/config');
 const { User } = require('./user');
@@ -18,79 +19,62 @@ const user = {
   ]
 };
 
-beforeAll(async () => {
-  await mongoose.connect(process.env.MONGODB_URI);
-});
-
-beforeEach(async () => {
-  await User.remove({ _id: user._id }).exec();
-  await new User(user).save();
-});
-
-afterAll(async () => {
-  await mongoose.disconnect();
-});
-
 describe('User Model', () => {
-  it('should not allow a username under the min length', async () => {
-    await expect(
-      User.findByIdAndUpdate(user._id, { userName: { $set: '1234' } })
-    ).rejects.toThrow();
-  });
-
-  it('should not save a password as plain text', async () => {
-    const doc = await User.findById(user._id);
-    expect(doc).toBeTruthy();
-    expect(doc.userName).toBe(user.userName);
-    expect(doc.password).not.toBe(user.password);
-  });
-
-  it('should resolve when comparing correct passwords', async () => {
-    const doc = await User.findById(user._id);
-    expect(doc).toBeTruthy();
-    await expect(doc.comparePassword(user.password)).resolves.toBeTruthy();
-  });
-
-  it('should reject when comparing incorrect passwords', async () => {
-    const doc = await User.findById(user._id);
-    expect(doc).toBeTruthy();
-    await expect(doc.comparePassword('blah')).rejects.toBeUndefined();
-  });
-
-  it('should find a user by their credentials', async () => {
-    const doc = await User.findByCredentials(user.userName, user.password);
-    expect(doc).toBeTruthy();
-    expect(doc.userName).toBe(user.userName);
-  });
-
-  it('should find a user with a valid auth token', async () => {
-    const doc = await User.findByToken(user.tokens[0].token);
-    expect(doc).toBeTruthy();
-    expect(doc.userName).toBe(user.userName);
-    expect(doc.tokens[0].token).toBe(user.tokens[0].token);
-  });
-
-  it('should remove an auth token', async () => {
-    let doc = await User.findById(userId);
-    expect(doc).toBeTruthy();
-    expect(doc.tokens.length).toBe(1);
-    await doc.removeToken(user.tokens[0].token).exec();
-    doc = await User.findById(userId);
-    expect(doc.tokens.length).toBe(0);
-  });
-
-  it('should generate an auth token with the jwt secret', async () => {
-    let doc = await User.findById(userId);
-    expect(doc).toBeTruthy();
-    expect(doc.tokens.length).toBe(1);
-    const token = await doc.generateAuthToken();
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    expect(decoded).toMatchObject({
-      _id: userId.toHexString(),
-      access: 'auth'
+  describe('Validation', () => {
+    it('should allow a username larger than the min length', async () => {
+      const user = new User({ userName: 'test-user', password: 'abc123' });
+      await expect(user.validate()).resolves.toBeFalsy();
     });
-    doc = await User.findById(userId);
-    expect(doc.tokens.length).toBe(2);
-    expect(doc.tokens[1].token).toEqual(token);
+
+    it('should not allow a username shorter the min length', async () => {
+      const user = new User({ userName: '1', password: 'abc123' });
+      await expect(user.validate()).rejects.toBeTruthy();
+    });
+
+    it('should allow a password larger than the min length', async () => {
+      const user = new User({ userName: 'test-user', password: 'abc123' });
+      await expect(user.validate()).resolves.toBeFalsy();
+    });
+
+    it('should not allow a password shorter than the min length', async () => {
+      const user = new User({ userName: 'test-user', password: '1' });
+      await expect(user.validate()).rejects.toBeTruthy();
+    });
+
+    it('should require a username', async () => {
+      const user = new User({ password: 'abc123' });
+      await expect(user.validate()).rejects.toBeTruthy();
+    });
+
+    it('should require a password', async () => {
+      const user = new User({ userName: 'test-user' });
+      await expect(user.validate()).rejects.toBeTruthy();
+    });
+  });
+
+  describe('Instance Methods', () => {
+    it('should call bcrypt compare when comparing passwords', async () => {
+      const user = new User({ userName: 'test-user', password: 'abc123' });
+      bcrypt.compare = jest.fn();
+      user.comparePassword('abc123');
+      expect(bcrypt.compare).toHaveBeenCalledTimes(1);
+      expect(bcrypt.compare).toHaveBeenCalledWith(
+        user.password,
+        user.password,
+        expect.any(Function)
+      );
+    });
+
+    it('should return the user document on successful password comparison', async () => {
+      const user = new User({ userName: 'test-user', password: 'abc123' });
+      bcrypt.compare = jest.fn((a, b, cb) => cb(null, true));
+      await expect(user.comparePassword('abc123')).resolves.toEqual(user);
+    });
+
+    it('should reject on password comparison fail', async () => {
+      const user = new User({ userName: 'test-user', password: 'abc123' });
+      bcrypt.compare = jest.fn((a, b, cb) => cb('error', null));
+      await expect(user.comparePassword('1')).rejects.toBeUndefined();
+    });
   });
 });
