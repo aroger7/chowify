@@ -27,13 +27,11 @@ describe('POST /users', () => {
       .expect(200);
     expect(res.body._id).toBeTruthy();
     expect(res.body.userName).toBe(userName);
-
     const user = await User.findOne({ userName }).exec();
     expect(user).toBeTruthy();
     expect(user.userName).toBe(userName);
     expect(user.password).not.toBe(password);
   });
-
   it('should not create a new user with an existing username', async () => {
     const userName = 'test-user';
     const password = 'abc123';
@@ -45,7 +43,6 @@ describe('POST /users', () => {
       .post('/users')
       .send({ userName, password })
       .expect(400);
-
     const users = await User.find({ userName }).exec();
     expect(users.length).toBe(1);
   });
