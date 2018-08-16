@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled, { ThemeProvider } from 'styled-components';
-import RecipeForm from 'components/RecipeForm';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 import { Flex, Box } from 'grid-styled';
 import Space from 'styled-space';
 
@@ -11,9 +8,7 @@ import theme from 'theme';
 import { modalTypes } from 'modals';
 import FixedHeader from 'components/FixedHeader';
 import Body from 'components/Body';
-import Fixed from 'components/Fixed';
-import BadgeButton from 'components/BadgeButton';
-import Button from 'components/common/Button';
+import AddRecipeButton from 'components/AddRecipeButton';
 import ModalRootContainer from 'containers/ModalRootContainer';
 import AddRecipeFormContainer from 'containers/AddRecipeFormContainer';
 import RecipeFormContainer from 'containers/RecipeFormContainer';
@@ -75,11 +70,7 @@ class App extends Component {
             </Flex>
           </FixedHeader>
           <Body />
-          <Fixed bottom={25} right={25} zIndex={5}>
-            <BadgeButton onClick={() => beginAddRecipe()}>
-              <FontAwesomeIcon icon={faPlus} color="#000000" />
-            </BadgeButton>
-          </Fixed>
+          {this.props.currentUser ? <AddRecipeButton /> : null}
         </AppWrapper>
       </ThemeProvider>
     );
