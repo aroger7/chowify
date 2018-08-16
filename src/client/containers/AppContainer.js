@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
-import { beginAddRecipe, viewRecipe } from 'actions';
-import { getViewingRecipe } from 'selectors';
+
+import { setAuthToken, setCurrentUser, showModal } from 'actions';
 import App from 'components/App';
 
 const mapDispatchToProps = dispatch => ({
-  beginAddRecipe: () => dispatch(beginAddRecipe()),
-  viewRecipe: id => dispatch(viewRecipe(id))
+  setAuthToken: token => dispatch(setAuthToken(token)),
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  showModal: (modalType, modalProps) =>
+    dispatch(showModal(modalType, modalProps))
 });
 
 const mapStateToProps = state => ({
-  isAdding: state.app.isAdding,
-  viewingRecipe: getViewingRecipe(state)
+  authToken: state.app.authToken,
+  currentUser: state.app.currentUser
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
