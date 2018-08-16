@@ -5,7 +5,7 @@
     "JWT_SECRET": "abc123"
   },
   "development": {
-    "PORT": 3000,
+    "PORT": 8080,
     "MONGODB_URI": "mongodb://localhost:27017/chowify-dev",
     "JWT_SECRET": "abc123"
   }
