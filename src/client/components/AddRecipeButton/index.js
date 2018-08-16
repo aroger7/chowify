@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faPlus from '@fortawesome/fontawesome-free-solid/faPlus';
 
+import { modalTypes } from 'modals';
 import BadgeButton from 'components/BadgeButton';
 import Fixed from 'components/Fixed';
 
@@ -12,7 +13,7 @@ class AddRecipeButton extends Component {
   }
 
   handleClick() {
-    //TODO: Show modal
+    this.props.showModal(modalTypes.ADD_RECIPE);
   }
 
   render() {

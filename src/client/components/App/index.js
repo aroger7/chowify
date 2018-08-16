@@ -8,7 +8,7 @@ import theme from 'theme';
 import { modalTypes } from 'modals';
 import FixedHeader from 'components/FixedHeader';
 import Body from 'components/Body';
-import AddRecipeButton from 'components/AddRecipeButton';
+import AddRecipeButtonContainer from 'containers/AddRecipeButtonContainer';
 import ModalRootContainer from 'containers/ModalRootContainer';
 import AddRecipeFormContainer from 'containers/AddRecipeFormContainer';
 import RecipeFormContainer from 'containers/RecipeFormContainer';
@@ -70,7 +70,7 @@ class App extends Component {
             </Flex>
           </FixedHeader>
           <Body />
-          {this.props.currentUser ? <AddRecipeButton /> : null}
+          {this.props.currentUser ? <AddRecipeButtonContainer /> : null}
         </AppWrapper>
       </ThemeProvider>
     );
