@@ -9,7 +9,6 @@ import TextBox from 'components/common/TextBox';
 import TextArea from 'components/common/TextArea';
 import Form from 'components/common/Form';
 import Title from './Title';
-import Card from './Card';
 import Button from 'components/common/Button';
 
 class AddRecipeForm extends Component {
