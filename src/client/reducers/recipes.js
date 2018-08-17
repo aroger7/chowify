@@ -2,11 +2,8 @@ import actionTypes from 'actions/actionTypes';
 
 const initialState = {
   all: [],
-  currentPage: 0,
-  editingRecipe: null,
-  itemsPerPage: 10,
-  search: '',
-  viewingRecipeId: null
+  nextCursor: null,
+  search: ''
 };
 
 const recipes = (state = initialState, action) => {
@@ -34,6 +31,12 @@ const recipes = (state = initialState, action) => {
         all: action.recipes,
         currentPage: 0
       });
+    case actionTypes.SET_ALL_RECIPES: {
+      return Object.assign({}, state, {
+        all: action.payload.recipes,
+        nextCursor: action.payload.next
+      });
+    }
     case actionTypes.SEARCH_RECIPE_NAMES:
       return Object.assign({}, state, {
         currentPage: 0,

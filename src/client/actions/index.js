@@ -27,6 +27,14 @@ export const searchRecipeNames = search => ({
   search
 });
 
+export const setAllRecipes = (recipes, next) => ({
+  type: actionTypes.SET_ALL_RECIPES,
+  payload: {
+    recipes,
+    next
+  }
+});
+
 export const setAuthToken = token => ({
   type: actionTypes.SET_AUTH_TOKEN,
   payload: {

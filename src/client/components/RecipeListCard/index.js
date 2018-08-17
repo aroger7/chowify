@@ -8,7 +8,7 @@ import Title from './Title';
 
 const RecipeListCard = ({ recipe, viewRecipe }) => (
   <Card onClick={() => viewRecipe(recipe.id)}>
-    <Thumbnail url={recipe.image} />
+    <Thumbnail url={recipe.imageUrl} />
     <Gradient>
       <Flex
         width={1}
@@ -16,9 +16,7 @@ const RecipeListCard = ({ recipe, viewRecipe }) => (
         justifyContent="flex-end"
         style={{ height: '100%' }}
       >
-        <Title>
-          {recipe.name}
-        </Title>
+        <Title>{recipe.name}</Title>
       </Flex>
     </Gradient>
   </Card>
