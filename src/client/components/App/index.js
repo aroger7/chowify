@@ -12,7 +12,6 @@ import Body from 'components/Body';
 import AddRecipeButtonContainer from 'containers/AddRecipeButtonContainer';
 import ModalRootContainer from 'containers/ModalRootContainer';
 import AddRecipeFormContainer from 'containers/AddRecipeFormContainer';
-import RecipeFormContainer from 'containers/RecipeFormContainer';
 import SearchFormContainer from 'containers/SearchFormContainer';
 import LoginSignUpContainer from 'containers/LoginSignUpContainer';
 import UserDropdownContainer from 'containers/UserDropdownContainer';
@@ -33,7 +32,6 @@ class App extends Component {
     this.state = {
       menuOpened: false
     };
-    this.handleUserMenuClick = this.handleUserMenuClick.bind(this);
   }
 
   async componentDidMount() {

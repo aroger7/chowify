@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
-import { viewRecipe } from 'actions';
+
+import { showModal } from 'actions';
 import RecipeListCard from 'components/RecipeListCard';
 
 const mapDispatchToProps = dispatch => ({
-  viewRecipe: id => dispatch(viewRecipe(id))
+  showModal: (modalType, modalProps) =>
+    dispatch(showModal(modalType, modalProps))
 });
 
 export default connect(null, mapDispatchToProps)(RecipeListCard);

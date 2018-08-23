@@ -1,10 +1,12 @@
 import AddRecipeModalContainer from 'containers/AddRecipeModalContainer';
 import LoginModalContainer from 'containers/LoginModalContainer';
+import RecipeModalContainer from 'containers/RecipeModalContainer';
 import SignUpModalContainer from 'containers/SignUpModalContainer';
 
 export const modalComponents = {
   ADD_RECIPE: AddRecipeModalContainer,
   LOGIN: LoginModalContainer,
+  RECIPE: RecipeModalContainer,
   SIGN_UP: SignUpModalContainer
 };
 

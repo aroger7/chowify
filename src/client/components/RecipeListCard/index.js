@@ -1,13 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Flex } from 'grid-styled';
+import axios from 'axios';
+
 import Card from './Card';
 import Gradient from './Gradient';
 import Thumbnail from './Thumbnail';
 import Title from './Title';
+import { modalTypes } from 'modals';
 
-const RecipeListCard = ({ recipe, viewRecipe }) => (
-  <Card onClick={() => viewRecipe(recipe.id)}>
+//TODO: Add link or button to top level
+const RecipeListCard = ({ recipe, showModal }) => (
+  <Card
+    onClick={async () => {
+      const res = await axios.get(
+        `http://localhost:8080/recipes/${recipe._id}`
+      );
+      showModal(modalTypes.RECIPE, { recipe: res.data });
+    }}
+  >
     <Thumbnail url={recipe.imageUrl} />
     <Gradient>
       <Flex
