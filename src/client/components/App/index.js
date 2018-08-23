@@ -53,11 +53,6 @@ class App extends Component {
     }
   }
 
-  handleUserMenuClick() {
-    this.setState(Object.assign({}, this.state, { menuOpened: true }));
-    console.log('user menu clicked');
-  }
-
   render() {
     // hack for window overlay scrollbar working properly
     // document.body.style.overflowY =
