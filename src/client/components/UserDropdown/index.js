@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Manager, Reference, Popper } from 'react-popper';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 import withClickAway from 'hocs/withClickAway';
 import Menu from 'components/Menu';
@@ -61,10 +62,10 @@ class UserDropdown extends Component {
               >
                 <UserMenu onClickAway={this.handleClickAway}>
                   <MenuItem>
-                    <MenuItem.Link href="#">My Recipes</MenuItem.Link>
+                    <MenuItem.Link to="/recipes">My Recipes</MenuItem.Link>
                   </MenuItem>
                   <MenuItem>
-                    <MenuItem.Link href="#">Settings</MenuItem.Link>
+                    <MenuItem.Link to="/settings">Settings</MenuItem.Link>
                   </MenuItem>
                   <MenuItem>
                     <MenuItem.Button onClick={this.handleLogoutClick}>

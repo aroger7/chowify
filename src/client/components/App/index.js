@@ -3,7 +3,8 @@ import axios from 'axios';
 import styled, { ThemeProvider } from 'styled-components';
 import { Flex, Box } from 'grid-styled';
 import Space from 'styled-space';
-import { Manager, Reference, Popper } from 'react-popper';
+import { Route, Link, Switch, Redirect } from 'react-router-dom';
+import { ModalRoute, ModalContainer } from 'react-router-modal';
 
 import theme from 'theme';
 import { modalTypes } from 'modals';
@@ -15,6 +16,8 @@ import AddRecipeFormContainer from 'containers/AddRecipeFormContainer';
 import SearchFormContainer from 'containers/SearchFormContainer';
 import LoginSignUpContainer from 'containers/LoginSignUpContainer';
 import UserDropdownContainer from 'containers/UserDropdownContainer';
+import LoginFormContainer from 'containers/LoginFormContainer';
+import SignUpFormContainer from 'containers/SignUpFormContainer';
 
 const CHOWIFY_USER_KEY = 'CHOWIFY_USER';
 
@@ -55,11 +58,11 @@ class App extends Component {
     // hack for window overlay scrollbar working properly
     // document.body.style.overflowY =
     //   viewingRecipe || isAdding ? 'hidden' : 'auto';
-
     return (
       <ThemeProvider theme={theme}>
         <AppWrapper>
-          <ModalRootContainer />
+          {/*<ModalRootContainer />*/}
+          <ModalContainer />
           <FixedHeader>
             <Flex
               alignItems="center"
@@ -74,7 +77,30 @@ class App extends Component {
               )}
             </Flex>
           </FixedHeader>
-          <Body />
+          <Switch>
+            <Route
+              path="/login"
+              render={() =>
+                this.props.currentUser ? (
+                  <Redirect to="/recipes" />
+                ) : (
+                  <LoginFormContainer />
+                )
+              }
+            />
+            <Route
+              path="/signUp"
+              render={() =>
+                this.props.currentUser ? (
+                  <Redirect to="/recipes" />
+                ) : (
+                  <SignUpFormContainer />
+                )
+              }
+            />
+            <Route path="/recipes" component={Body} />
+            <Redirect to="/recipes" />
+          </Switch>
           {this.props.currentUser ? <AddRecipeButtonContainer /> : null}
         </AppWrapper>
       </ThemeProvider>

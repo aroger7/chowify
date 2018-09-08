@@ -29,9 +29,10 @@ class SignUpForm extends Component {
   }
 
   handleCancel() {
-    if (this.props.onCancel) {
-      this.props.onCancel();
-    }
+    // if (this.props.onCancel) {
+    //   this.props.onCancel();
+    // }
+    this.props.history.goBack();
   }
 
   handlePasswordChange(e) {

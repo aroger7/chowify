@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { hideModal } from 'actions';
 import SignUpForm from 'components/SignUpForm';
@@ -9,4 +10,6 @@ const mapDispatchToProps = dispatch => ({
 
 const mapStateToProps = state => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpForm);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SignUpForm)
+);

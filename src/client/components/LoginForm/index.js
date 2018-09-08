@@ -24,9 +24,10 @@ class LoginForm extends Component {
   }
 
   handleCancelClick(e) {
-    if (this.props.onCancel) {
-      this.props.onCancel(e);
-    }
+    // if (this.props.onCancel) {
+    //   this.props.onCancel(e);
+    // }
+    this.props.history.goBack();
   }
 
   handlePasswordChange(e) {

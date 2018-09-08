@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Flex } from 'grid-styled';
 import Space from 'styled-space';
 
-import { modalTypes } from 'modals';
 import Button from 'components/common/Button';
 
 class LoginSignUp extends Component {
@@ -13,11 +12,11 @@ class LoginSignUp extends Component {
   }
 
   handleLoginClick() {
-    this.props.showModal(modalTypes.LOGIN);
+    this.props.history.push('/login');
   }
 
   handleSignUpClick() {
-    this.props.showModal(modalTypes.SIGN_UP);
+    this.props.history.push('/signUp');
   }
 
   render() {

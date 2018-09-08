@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import { setAuthToken, setCurrentUser, showModal } from 'actions';
 import App from 'components/App';
@@ -15,4 +16,4 @@ const mapStateToProps = state => ({
   currentUser: state.app.currentUser
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
